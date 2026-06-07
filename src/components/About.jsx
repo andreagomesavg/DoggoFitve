@@ -1,6 +1,7 @@
 // src/components/About.jsx
 import { Camera, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import fotoPerro from '../../public/fotoPerro.jpeg';
 
 
 
@@ -54,7 +55,7 @@ const About = () => {
                 Foto de tu papá con un perrito aquí
               </p>
             </div>
-            {/* <img src="/foto-papa.jpg" alt="Fundador de Doggofitve" className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 hover:scale-105" /> */}
+            <img src={fotoPerro} alt="Fundador de Doggofitve" className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 hover:scale-105" /> 
           </div>
 
           {/* Área de Texto */}
