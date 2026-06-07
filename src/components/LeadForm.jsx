@@ -40,7 +40,7 @@ const LeadForm = () => {
     if (countryCode === '+58') {
       // Acepta 10 dígitos (ej: 4121234567) o 11 dígitos con el 0 (ej: 04121234567)
       if (cleanPhone.length !== 10 && cleanPhone.length !== 11) {
-        return { isValid: false, error: "El número de Venezuela debe tener 10 u 11 dígitos (Ej: 0412 1234567)." };
+        return { isValid: false, error: "El número de Venezuela debe tener 10 u 11 dígitos (Ej: 0414 1992774)." };
       }
     } else if (cleanPhone.length < 8) {
       return { isValid: false, error: "Por favor, ingresa un número de teléfono válido." };

@@ -81,7 +81,7 @@ function App() {
 
   {/* Gmail */}
   <a 
-    href="mailto:contacto@doggofitve.com" 
+    href="mailto:infodoggofit@gmail.com" 
     className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-all duration-300 transform hover:scale-105"
     aria-label="Envíanos un correo"
   >
@@ -89,12 +89,12 @@ function App() {
     <span className="text-sm font-medium">infodoggofit@gmail.com</span>
   </a>
   <a 
-    href="tel:+584141234567" 
+    href="tel:+584141992774" 
     className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-all duration-300 transform hover:scale-105"
     aria-label="Llámanos"
   >
     <Phone className="w-5 h-5" />
-    <span className="text-sm font-medium">+58 414-1234567</span>
+    <span className="text-sm font-medium">+58 0414-1992774</span>
   </a>
 </div>
         <div className="max-w-7xl mx-auto px-4 text-center">
