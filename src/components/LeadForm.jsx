@@ -1,5 +1,5 @@
 // src/components/LeadForm.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { supabase } from '../config/supabase';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
