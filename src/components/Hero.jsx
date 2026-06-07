@@ -1,5 +1,7 @@
 
 import { motion } from 'framer-motion';
+import dogwalk2 from '../assets/dogwalk2.png';
+import heroVan from '../assets/heroVan.png';
 
 const Hero = () => {
   return (
@@ -25,7 +27,7 @@ const Hero = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "spring", bounce: 0.4 }}
-                src="src/assets/dogwalk2.png" 
+                src={dogwalk2}
                 alt="Perro feliz"
                 className="mx-auto w-[300px] h-auto object-contain mt-4"
               />
@@ -93,7 +95,7 @@ const Hero = () => {
                 className="absolute bottom-0 right-0 lg:right-10 opacity-80 sm:mr-0 pointer-events-none hidden md:block"
               >
                 <img
-                  src="src/assets/heroVan.png" 
+                  src={heroVan}
                   alt="Van de Doggofitve"
                   className="w-auto h-auto max-h-full md:w-[28rem] lg:w-[32rem] object-contain"
                 />

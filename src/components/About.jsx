@@ -3,6 +3,8 @@ import React from 'react';
 import { Camera, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+
+
 const About = () => {
   // Variantes para el contenedor principal
   const containerVariants = {
