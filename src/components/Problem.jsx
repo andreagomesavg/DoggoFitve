@@ -79,7 +79,7 @@ const Problem = () => {
               </li>
               <li className="flex items-start">
                 <Activity className="w-6 h-6 text-[#e2b220] mr-3 shrink-0 mt-0.5" strokeWidth={2} />
-                <span>Cintas no motorizadas seguras, que van al ritmo de tu perro.</span>
+                <span>Cintas no motorizadas seguras, que van al ritmo de tu canino.</span>
               </li>
               <li className="flex items-start">
                 <Zap className="w-6 h-6 text-[#e2b220] mr-3 shrink-0 mt-0.5" strokeWidth={2} />
