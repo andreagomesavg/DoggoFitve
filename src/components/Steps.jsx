@@ -53,7 +53,7 @@ const Steps = () => {
         </div>
         <div className="p-6 flex flex-col flex-grow">
           <h3 className="text-[22px] font-bold text-[#4c4c4c] mb-2">2. Vamos a tu puerta</h3>
-          <p className="text-[#4c4c4c]/80 flex-grow">Llegamos a tu domicilio con nuestra Van equipada, segura y climatizada.</p>
+          <p className="text-[#4c4c4c]/80 flex-grow">Llegamos a tu domicilio con nuestra Van equipada y segura.</p>
         </div>
       </motion.div>
 
