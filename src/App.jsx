@@ -1,5 +1,5 @@
 // src/App.jsx
-
+import logoIcon from '../assets/logoIcon.png';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
 import Steps from './components/Steps';
@@ -17,7 +17,7 @@ function App() {
   <div className=" mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <div className="flex items-center gap-2"> 
       <img
-                src="src\assets\logoIcon.png" 
+                src={logoIcon} 
                 alt="Perro feliz"
                 className="mx-auto w-[60px] h-auto object-contain "
               />
