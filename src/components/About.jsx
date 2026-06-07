@@ -1,5 +1,4 @@
 // src/components/About.jsx
-import React from 'react';
 import { Camera, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 

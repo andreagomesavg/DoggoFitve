@@ -1,5 +1,5 @@
 // src/App.jsx
-import logoIcon from '../assets/logoIcon.png';
+import logoIcon from './assets/logoIcon.png';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
 import Steps from './components/Steps';
