@@ -17,7 +17,7 @@ const Problem = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <h2 className="text-3xl font-extrabold text-[#4c4c4c] sm:text-4xl tracking-tight">
-            ¿Tu perro tiene demasiada energía y tú <span className="text-[#0551ad]">poco tiempo?</span>
+            ¿Tu canino tiene demasiada energía y tú <span className="text-[#0551ad]">poco tiempo?</span>
           </h2>
           <p className="mt-5 text-xl text-[#4c4c4c]/80 leading-relaxed">
             Vivir en un apartamento en Caracas puede ser estresante para tu mascota. La falta de ejercicio adecuado genera ansiedad, destrozos en casa y problemas de salud.

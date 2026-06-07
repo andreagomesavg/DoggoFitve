@@ -74,7 +74,7 @@ const Hero = () => {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="pb-6 mt-4 text-xl text-[#4c4c4c]/80 max-w-md"
                 >
-                  El primer gimnasio móvil en Caracas que va directo a tu puerta para que tu perro drene su energía.
+                  El primer gimnasio móvil en Caracas que va directo a tu puerta para que tu canino drene su energía.
                 </motion.p> 
                 <motion.button 
                   initial={{ opacity: 0, x: 50 }}

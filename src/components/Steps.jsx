@@ -64,7 +64,7 @@ const Steps = () => {
         </div>
         <div className="p-6 flex flex-col flex-grow">
           <h3 className="text-[22px] font-bold text-[#4c4c4c] mb-2">3. Corre feliz</h3>
-          <p className="text-[#4c4c4c]/80 flex-grow">Tu perro hace ejercicio en cintas especiales con supervisión constante.</p>
+          <p className="text-[#4c4c4c]/80 flex-grow">Tu canino hace ejercicio en cintas especiales con supervisión constante.</p>
         </div>
       </motion.div>
 

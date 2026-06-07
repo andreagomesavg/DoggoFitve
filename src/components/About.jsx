@@ -70,7 +70,7 @@ const About = () => {
             </motion.h2>
             
             <motion.p variants={textVariants} className="text-gray-600 text-lg mb-6 leading-relaxed">
-              Sabemos lo que significa amar a un perro y querer darle la mejor calidad de vida. Doggofitve nace de la necesidad de ofrecer una solución real, segura y conveniente para los dueños de mascotas en Caracas. 
+              Sabemos lo que significa amar a un canino y querer darle la mejor calidad de vida. Doggofitve nace de la necesidad de ofrecer una solución real, segura y conveniente para los dueños de mascotas en Caracas. 
             </motion.p>
             
             <motion.p variants={textVariants} className="text-gray-600 text-lg leading-relaxed mb-10">
