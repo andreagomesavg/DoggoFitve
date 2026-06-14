@@ -1,16 +1,30 @@
 // src/components/LeadForm.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../config/supabase';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 
 const LeadForm = () => {
+  const [searchParams] = useSearchParams();
+  const planInteres = searchParams.get('plan');
+
   const [countryCode, setCountryCode] = useState('+58');
   const [formData, setFormData] = useState({
     name: '',
     whatsapp: '',
     zone: '',
-    dog_breed: ''
+    dog_breed: '',
+    nombrePerro: '', // <-- Añadido al estado inicial
   });
+
+  // Mensaje automático basado en el plan de la URL (si decides usarlo más adelante)
+  const [mensajePlan, setMensajePlan] = useState('');
+
+  useEffect(() => {
+    if (planInteres) {
+      setMensajePlan(`¡Hola! Estoy interesado en el plan ${planInteres}.`);
+    }
+  }, [planInteres]);
   
   const [status, setStatus] = useState({ loading: false, error: null, success: false });
 
@@ -21,7 +35,7 @@ const LeadForm = () => {
 
   // Sanitizador básico para evitar HTML tags (<script>, <b>, etc.)
   const sanitizeInput = (str) => {
-    return str.replace(/<[^>]*>?/gm, '').trim();
+    return str ? str.replace(/<[^>]*>?/gm, '').trim() : '';
   };
 
   // Validaciones del Frontend
@@ -30,9 +44,10 @@ const LeadForm = () => {
     const cleanName = sanitizeInput(formData.name);
     const cleanZone = sanitizeInput(formData.zone);
     const cleanBreed = sanitizeInput(formData.dog_breed);
+    const cleanDogName = sanitizeInput(formData.nombrePerro); // <-- Sanitizamos nombre del perrito
     const cleanPhone = formData.whatsapp.replace(/\D/g, ''); // Solo números
 
-    if (!cleanName || !cleanPhone || !cleanZone || !cleanBreed) {
+    if (!cleanName || !cleanPhone || !cleanZone || !cleanBreed || !cleanDogName) {
       return { isValid: false, error: "Todos los campos son obligatorios y no pueden contener código HTML." };
     }
 
@@ -48,11 +63,17 @@ const LeadForm = () => {
 
     return { 
       isValid: true, 
-      data: { name: cleanName, zone: cleanZone, dog_breed: cleanBreed, whatsapp: `${countryCode}${cleanPhone}` } 
+      data: { 
+        name: cleanName, 
+        zone: cleanZone, 
+        dog_breed: cleanBreed, 
+        nombrePerro: cleanDogName,
+        whatsapp: `${countryCode}${cleanPhone}` 
+      } 
     };
   };
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ loading: true, error: null, success: false });
 
@@ -64,21 +85,26 @@ const LeadForm = () => {
 
     try {
       const { error } = await supabase
-        .from('leads')
-        .insert([
-          { 
-            name: validation.data.name, 
-            whatsapp: validation.data.whatsapp, 
-            zone: validation.data.zone, 
-            dog_breed: validation.data.dog_breed 
-          }
-        ]);
+      .from('leads')
+      .insert([
+        { 
+          // LA MAGIA: Claves exactas de tu base de datos a la izquierda
+          name: validation.data.name, 
+          whatsapp: validation.data.whatsapp,
+          nombre_perro: validation.data.nombrePerro, 
+          zone: validation.data.zone, 
+          dog_breed: validation.data.dog_breed, 
+          plan: planInteres || 'No especificó' 
+        }
+      ]);
 
-      if (error) throw error;
-
-      setStatus({ loading: false, error: null, success: true });
-      setFormData({ name: '', whatsapp: '', zone: '', dog_breed: '' });
-      
+      if (error) {
+        console.error('Error al guardar:', error);
+        setStatus({ loading: false, error: 'Hubo un error al guardar en la base de datos.', success: false });
+      } else {
+        setStatus({ loading: false, error: null, success: true });
+        setFormData({ name: '', whatsapp: '', zone: '', dog_breed: '', nombrePerro: '' });
+      }
     } catch (error) {
       console.error('Error guardando el lead:', error);
       setStatus({ loading: false, error: 'Hubo un problema de conexión. Intenta de nuevo.', success: false });
@@ -136,8 +162,15 @@ const LeadForm = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {planInteres && (
+                  <div className="mb-6 p-4 bg-[#e2b220]/10 border border-[#e2b220]/30 rounded-xl flex items-center text-[#4c4c4c]">
+                    <span className="font-medium text-sm">
+                      Estás agendando el plan: <strong className="font-extrabold text-[#0551ad] uppercase">{planInteres}</strong>
+                    </span>
+                  </div>
+                )}
                 
-                {/* Nombre */}
+                {/* Nombre del Dueño */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-bold text-[#4c4c4c] mb-2">Nombre del dueño <span className="text-red-500">*</span></label>
                   <input
@@ -151,7 +184,7 @@ const LeadForm = () => {
                     placeholder="Ej. María Pérez"
                   />
                 </div>
-
+                
                 {/* WhatsApp Compuesto (Select + Input) */}
                 <div>
                   <label htmlFor="whatsapp" className="block text-sm font-bold text-[#4c4c4c] mb-2">WhatsApp <span className="text-red-500">*</span></label>
@@ -165,7 +198,6 @@ const LeadForm = () => {
                       <option value="+34">🇪🇸 +34</option>
                       <option value="+1">🇺🇸 +1</option>
                       <option value="+57">🇨🇴 +57</option>
-                      {/* Puedes agregar más códigos aquí si lo necesitas */}
                     </select>
                     <input
                       type="tel"
@@ -180,19 +212,20 @@ const LeadForm = () => {
                   </div>
                 </div>
 
-                {/* Fila: Zona y Raza */}
+                {/* Fila: Nombre del Perrito y Raza */}
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  {/* NUEVO INPUT: Nombre del perrito */}
                   <div>
-                    <label htmlFor="zone" className="block text-sm font-bold text-[#4c4c4c] mb-2">Zona de Caracas <span className="text-red-500">*</span></label>
+                    <label htmlFor="nombrePerro" className="block text-sm font-bold text-[#4c4c4c] mb-2">Nombre del perrito <span className="text-red-500">*</span></label>
                     <input
                       type="text"
-                      name="zone"
-                      id="zone"
+                      name="nombrePerro"
+                      id="nombrePerro"
                       required
-                      value={formData.zone}
+                      value={formData.nombrePerro}
                       onChange={handleChange}
                       className="block w-full rounded-lg border-gray-300 bg-gray-50 shadow-sm focus:border-[#0c62d6] focus:ring-[#0c62d6] focus:bg-white sm:text-sm px-4 py-3 border transition-colors outline-none"
-                      placeholder="Ej. Chacao"
+                      placeholder="Ej. Max"
                     />
                   </div>
 
@@ -206,9 +239,24 @@ const LeadForm = () => {
                       value={formData.dog_breed}
                       onChange={handleChange}
                       className="block w-full rounded-lg border-gray-300 bg-gray-50 shadow-sm focus:border-[#0c62d6] focus:ring-[#0c62d6] focus:bg-white sm:text-sm px-4 py-3 border transition-colors outline-none"
-                      placeholder="Ej. Golden"
+                      placeholder="Ej. Golden Retriever"
                     />
                   </div>
+                </div>
+
+                {/* Zona de Caracas (Ahora ocupa el ancho completo) */}
+                <div>
+                  <label htmlFor="zone" className="block text-sm font-bold text-[#4c4c4c] mb-2">Zona de Caracas <span className="text-red-500">*</span></label>
+                  <input
+                    type="text"
+                    name="zone"
+                    id="zone"
+                    required
+                    value={formData.zone}
+                    onChange={handleChange}
+                    className="block w-full rounded-lg border-gray-300 bg-gray-50 shadow-sm focus:border-[#0c62d6] focus:ring-[#0c62d6] focus:bg-white sm:text-sm px-4 py-3 border transition-colors outline-none"
+                    placeholder="Ej. Chacao"
+                  />
                 </div>
 
                 {/* Mensaje de Error */}
@@ -223,7 +271,7 @@ const LeadForm = () => {
                 <button
                   type="submit"
                   disabled={status.loading}
-                  className="w-full flex justify-center items-center py-4 px-4 border border-transparent rounded-lg shadow-lg shadow-[#0c62d6]/30 text-lg font-bold text-white bg-[#0c62d6] hover:bg-[#094ca8] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0c62d6] disabled:opacity-70 transition-all transform hover:-translate-y-0.5"
+                  className="w-full flex justify-center hover:cursor-pointer items-center py-4 px-4 border border-transparent rounded-lg shadow-lg shadow-[#0c62d6]/30 text-lg font-bold text-white bg-[#0c62d6] hover:bg-[#094ca8] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0c62d6] disabled:opacity-70 transition-all transform hover:-translate-y-0.5"
                 >
                   {status.loading ? 'Enviando...' : (
                     <>
