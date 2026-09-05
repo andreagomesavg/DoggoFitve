@@ -86,7 +86,7 @@ const Pricing = () => {
             <h3 className="text-xl font-bold mb-2 uppercase tracking-wide">Bienestar</h3>
             <p className="text-white/80 text-sm font-medium mb-6 h-10">Mantenimiento Mensual <br/>(4 Sesiones)</p>
             <div className="mb-6">
-              <span className="text-5xl font-extrabold">$40</span>
+              <span className="text-5xl font-extrabold">$50</span>
               <span className="text-white/70 font-medium"> / mes</span>
             </div>
             <p className="text-white/90 leading-relaxed mb-8 flex-grow">
@@ -105,7 +105,7 @@ const Pricing = () => {
             <h3 className="text-xl font-bold text-[#e2b220] mb-2 uppercase tracking-wide">Kinetic</h3>
             <p className="text-white/60 text-sm font-medium mb-6 h-10">Alto Rendimiento <br/>(8 Sesiones)</p>
             <div className="mb-6">
-              <span className="text-5xl font-extrabold">$66</span>
+              <span className="text-5xl font-extrabold">$90</span>
               <span className="text-white/50 font-medium"> / mes</span>
             </div>
             <p className="text-white/80 leading-relaxed mb-8 flex-grow">
